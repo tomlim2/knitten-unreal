@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+set -eu
+
+if [ -z "${KNITTEN_PATH_BIN:-}" ]; then
+  echo "ERROR: KNITTEN_PATH_BIN is required" >&2
+  exit 1
+fi
+
+exec "$KNITTEN_PATH_BIN" output "$@"

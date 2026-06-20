@@ -1,0 +1,37 @@
+{
+  "name": "knitten-unreal",
+  "version": "0.1.0",
+  "description": "Unreal Engine skills for Knitten",
+  "author": {
+    "name": "tomlim2"
+  },
+  "homepage": "https://github.com/tomlim2/knitten-unreal",
+  "repository": "https://github.com/tomlim2/knitten-unreal",
+  "license": "MIT",
+  "keywords": [
+    "agent",
+    "codex",
+    "skills",
+    "knitten",
+    "unreal",
+    "unreal-engine"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Knitten Unreal",
+    "shortDescription": "Unreal Engine workflow skills for Knitten.",
+    "longDescription": "Knitten Unreal is a private payload plugin for Unreal Engine asset, material, redirector, character, sprite sheet, and editor automation workflows.",
+    "developerName": "tomlim2",
+    "category": "Productivity",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/tomlim2/knitten-unreal",
+    "brandColor": "#6D28D9",
+    "defaultPrompt": [
+      "Use Knitten Unreal skills only for Unreal Engine project and asset workflows."
+    ],
+    "screenshots": []
+  }
+}
