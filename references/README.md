@@ -16,6 +16,7 @@ Baseline environment:
 
 | File | Use |
 |------|-----|
+| `unreal-llm-rules.md` | Minimal default paths and LLM context rule for Unreal tasks. Read this first instead of loading every reference file. |
 | `unreal-mcp.md` | Official Unreal MCP setup, Codex config, smoke tests, source anchors, and operational caveats. |
 | `ue58-toolsets.md` | UE 5.8 experimental toolset inventory with focus on EditorToolset, PCGToolset, and source locations. |
 | `pcg-box-only.md` | Practical PCG notes for asset-free cube prototypes, landscape sampling limits, and future skill workflow shape. |
@@ -30,4 +31,3 @@ Baseline environment:
   Toolset APIs are experimental and can move quickly.
 - Keep project-specific observations labeled as observations, not universal
   requirements.
-

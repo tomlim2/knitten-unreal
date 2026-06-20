@@ -25,11 +25,17 @@ skills.
 
 ## Layout
 
+For Unreal task defaults, read
+[`references/unreal-llm-rules.md`](references/unreal-llm-rules.md) first. It is
+the small text-only context file; do not load the full reference pack unless the
+task needs deeper details.
+
 | Path | Purpose |
 |------|---------|
 | `.codex-plugin/plugin.json` | Codex plugin manifest. |
 | `references/` | Unreal MCP, UE 5.8 toolset, and PCG reference notes for future skill design. |
 | `skills/` | Empty skill payload root kept for future Unreal skills. |
+| `scripts/unreal/` | Reusable Unreal MCP and UE Python helper scripts for research and prototypes. |
 | `scripts/materialize-local-plugin.mjs` | Copy this checkout into the local Codex plugin folder and update the marketplace entry. |
 | `scripts/doctor.mjs` | Check source and installed plugin health. |
 | `scripts/validate-routing.mjs` | Check skill activation-gate requirements. |
