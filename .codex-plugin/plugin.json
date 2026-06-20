@@ -1,7 +1,7 @@
 {
   "name": "knitten-unreal",
   "version": "0.1.0",
-  "description": "Unreal Engine skills for Knitten",
+  "description": "Fresh-start Unreal Engine skill plugin for Knitten",
   "author": {
     "name": "tomlim2"
   },
@@ -19,8 +19,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Knitten Unreal",
-    "shortDescription": "Unreal Engine workflow skills for Knitten.",
-    "longDescription": "Knitten Unreal is a private payload plugin for Unreal Engine asset, material, redirector, character, sprite sheet, and editor automation workflows.",
+    "shortDescription": "Fresh-start Unreal Engine skill payload for Knitten.",
+    "longDescription": "Knitten Unreal is currently a fresh-start placeholder. Existing Unreal Engine and CINEV workflow skills have moved back to KAS until this payload is redesigned.",
     "developerName": "tomlim2",
     "category": "Productivity",
     "capabilities": [
@@ -30,7 +30,7 @@
     "websiteURL": "https://github.com/tomlim2/knitten-unreal",
     "brandColor": "#6D28D9",
     "defaultPrompt": [
-      "Use Knitten Unreal skills only for Unreal Engine project and asset workflows."
+      "Knitten Unreal currently has no active skills. Use KAS for existing Unreal Engine workflows."
     ],
     "screenshots": []
   }
