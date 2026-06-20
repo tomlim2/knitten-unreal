@@ -28,6 +28,7 @@ skills.
 | Path | Purpose |
 |------|---------|
 | `.codex-plugin/plugin.json` | Codex plugin manifest. |
+| `references/` | Unreal MCP, UE 5.8 toolset, and PCG reference notes for future skill design. |
 | `skills/` | Empty skill payload root kept for future Unreal skills. |
 | `scripts/materialize-local-plugin.mjs` | Copy this checkout into the local Codex plugin folder and update the marketplace entry. |
 | `scripts/doctor.mjs` | Check source and installed plugin health. |
