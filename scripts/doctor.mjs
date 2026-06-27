@@ -161,10 +161,10 @@ function main() {
     return "no finding report references";
   });
 
-  check(checks, "source-routing", () => {
-    const result = runJson("node", ["scripts/validate-routing.mjs"]);
-    if (!result.ok) throw new Error(`${result.issues.length} routing issues`);
-    return `${result.skillCount} routed skills`;
+  check(checks, "source-activation", () => {
+    const result = runJson("node", ["scripts/validate-activation.mjs"]);
+    if (!result.ok) throw new Error(`${result.issues.length} activation issues`);
+    return `${result.skillCount} activation-checked skills`;
   });
 
   check(checks, "source-payload-output-shim", () => {
@@ -265,12 +265,12 @@ function main() {
     return "no copied finding report references";
   });
 
-  check(checks, "copied-routing", () => {
-    const result = runJson("node", ["scripts/validate-routing.mjs"], {
+  check(checks, "copied-activation", () => {
+    const result = runJson("node", ["scripts/validate-activation.mjs"], {
       cwd: copiedRoot,
     });
-    if (!result.ok) throw new Error(`${result.issues.length} copied routing issues`);
-    return `${result.skillCount} routed skills`;
+    if (!result.ok) throw new Error(`${result.issues.length} copied activation issues`);
+    return `${result.skillCount} activation-checked skills`;
   });
 
   check(checks, "copied-payload-output-shim", () => {

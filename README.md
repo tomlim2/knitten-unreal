@@ -18,7 +18,7 @@ skills.
 
 | Repository | Use it for |
 |------------|------------|
-| `knitten` | Shared Agent Hub routing, output paths, workflow contracts, and boundary rules. |
+| `knitten` | Shared Agent Hub workflow skills, output paths, workflow contracts, and boundary rules. |
 | `knitten-all-skills` | General non-Shotloom private skills, including the current Unreal Engine helpers. |
 | `knitten-sl` | Shotloom-specific skills. |
 | `knitten-unreal` | Fresh-start placeholder for a future redesigned Unreal payload. |
@@ -38,7 +38,7 @@ task needs deeper details.
 | `scripts/unreal/` | Reusable Unreal MCP and UE Python helper scripts for research and prototypes. |
 | `scripts/materialize-local-plugin.mjs` | Copy this checkout into the local Codex plugin folder and update the marketplace entry. |
 | `scripts/doctor.mjs` | Check source and installed plugin health. |
-| `scripts/validate-routing.mjs` | Check skill activation-gate requirements. |
+| `scripts/validate-activation.mjs` | Check skill activation-gate requirements. |
 | `scripts/validate-boundary.mjs` | Delegate payload boundary validation to Knitten core. |
 
 ## Local Install
@@ -70,7 +70,7 @@ the old skill list until a new session starts.
 
 ```bash
 python3 <plugin-creator>/scripts/validate_plugin.py .
-node scripts/validate-routing.mjs
+node scripts/validate-activation.mjs
 node scripts/validate-boundary.mjs --warn-only
 node scripts/doctor.mjs
 ```
@@ -78,7 +78,7 @@ node scripts/doctor.mjs
 Expected state:
 
 - plugin validation passes
-- routing validation reports `0 skills`
+- activation validation reports `0 skills`
 - boundary validation reports no errors
 - doctor reports source and copied plugin checks as OK
 
