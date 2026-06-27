@@ -23,6 +23,9 @@ Baseline used while collecting these scripts:
 | `list-level-actors.py` | Open a level and print actor summaries as JSON without saving. |
 | `build-box-city.py` | Create a 4x4 box-only city prototype and save the target level. |
 | `randomize-building-materials.py` | Create a color material palette and assign it to box-city buildings. |
+| `conform-city-to-terrain.py` | Legacy post-process helper that replaces a flat city base with box terrain, segmented roads, and terrain-aligned buildings. |
+| `build-pcg-box-city.py` | Delete level actors and run the terrain-aware box-city generator. It also writes a PCG graph asset for reference, but visible actors come from one generator layout, not a post-conform pass. |
+| `inspect-pcg-api.py` | Print PCG-related Python API symbols for the active Unreal build. |
 
 ## MCP Toolsets
 
@@ -97,9 +100,37 @@ node scripts/unreal/run-python-commandlet.mjs \
   --script=scripts/unreal/randomize-building-materials.py
 ```
 
-`build-box-city.py` writes and saves the target level. If the live editor is
-already open and remote execution is unavailable, reopen or reload the level in
-the editor after running the commandlet.
+Legacy post-process path for conforming an already generated box city:
+
+```bash
+KNITTEN_UNREAL_LEVEL=/Game/Levels/Lvl_MCPPCG \
+node scripts/unreal/run-python-commandlet.mjs \
+  --script=scripts/unreal/conform-city-to-terrain.py
+```
+
+Replace the level with the terrain-aware box-city generator:
+
+```bash
+KNITTEN_UNREAL_LEVEL=/Game/Levels/Lvl_MCPPCG \
+KNITTEN_UNREAL_CITY_BLOCKS=4 \
+KNITTEN_UNREAL_BLOCK_SIZE=1800 \
+KNITTEN_UNREAL_ROAD_WIDTH=260 \
+KNITTEN_UNREAL_TERRAIN_TILES=32 \
+KNITTEN_UNREAL_ROAD_SEGMENTS=24 \
+node scripts/unreal/run-python-commandlet.mjs \
+  --script=scripts/unreal/build-pcg-box-city.py
+```
+
+`build-pcg-box-city.py` should be the default for new terrain-aware city
+generation. It creates `PCGGenerated_` actors directly from the generated
+layout, so buildings and roads are placed on terrain height during generation
+instead of being moved by `conform-city-to-terrain.py` afterward.
+
+`build-box-city.py`, `build-pcg-box-city.py`,
+`randomize-building-materials.py`, and `conform-city-to-terrain.py` write and
+save the target level. If the live editor is already open and remote execution
+is unavailable, reopen or reload the level in the editor after running the
+commandlet.
 
 ## Environment Variables
 
@@ -107,12 +138,15 @@ the editor after running the commandlet.
 |----------|---------|---------|
 | `KNITTEN_UNREAL_ENGINE` | `run-python-commandlet.mjs`, `probe-remote-execution.py` | `/Users/Shared/Epic Games/UE_5.8` |
 | `KNITTEN_UNREAL_PROJECT` | `run-python-commandlet.mjs` | `/Users/younsoolim/Documents/UE5d8/Advent/Advent.uproject` |
-| `KNITTEN_UNREAL_LEVEL` | `list-level-actors.py`, `build-box-city.py` | `/Game/Levels/Lvl_MCPPCG` |
-| `KNITTEN_UNREAL_CITY_BLOCKS` | `build-box-city.py` | `4` |
-| `KNITTEN_UNREAL_BLOCK_SIZE` | `build-box-city.py` | `1800` |
-| `KNITTEN_UNREAL_ROAD_WIDTH` | `build-box-city.py` | `260` |
-| `KNITTEN_UNREAL_SEED` | `build-box-city.py`, `randomize-building-materials.py` | `7` |
+| `KNITTEN_UNREAL_LEVEL` | `list-level-actors.py`, `build-box-city.py`, `build-pcg-box-city.py` | `/Game/Levels/Lvl_MCPPCG` |
+| `KNITTEN_UNREAL_CITY_BLOCKS` | `build-box-city.py`, `build-pcg-box-city.py` | `4` |
+| `KNITTEN_UNREAL_BLOCK_SIZE` | `build-box-city.py`, `build-pcg-box-city.py` | `1800` |
+| `KNITTEN_UNREAL_ROAD_WIDTH` | `build-box-city.py`, `build-pcg-box-city.py` | `260` |
+| `KNITTEN_UNREAL_SEED` | `build-box-city.py`, `build-pcg-box-city.py`, `randomize-building-materials.py` | `7` |
 | `KNITTEN_UNREAL_COLOR_COUNT` | `randomize-building-materials.py` | `24` |
+| `KNITTEN_UNREAL_TERRAIN_TILES` | `build-pcg-box-city.py`, `conform-city-to-terrain.py` | `32` for generator, `28` for legacy conform |
+| `KNITTEN_UNREAL_ROAD_SEGMENTS` | `build-pcg-box-city.py`, `conform-city-to-terrain.py` | `24` |
+| `KNITTEN_UNREAL_TERRAIN_MARGIN` | `conform-city-to-terrain.py` | `800` |
 
 To pass additional Unreal commandlet flags, use repeated `--editor-arg=...`
 options on `run-python-commandlet.mjs`.

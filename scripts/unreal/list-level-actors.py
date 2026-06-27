@@ -60,6 +60,33 @@ def component_paths(actor, component_cls_name):
     return [component.get_path_name() for component in components]
 
 
+def pcg_component_details(actor):
+    component_cls = getattr(unreal, "PCGComponent", None)
+    if component_cls is None:
+        return []
+    try:
+        components = actor.get_components_by_class(component_cls)
+    except Exception:
+        return []
+
+    details = []
+    for component in components:
+        try:
+            graph = component.get_graph()
+        except Exception:
+            graph = None
+        details.append(
+            {
+                "path": component.get_path_name(),
+                "graph": graph.get_path_name() if graph is not None else None,
+                "generated": bool(component.get_editor_property("generated")),
+                "generation_trigger": str(component.get_editor_property("generation_trigger")),
+                "seed": int(component.get_editor_property("seed")),
+            }
+        )
+    return details
+
+
 def mesh_names(actor):
     mesh_component_cls = getattr(unreal, "StaticMeshComponent", None)
     if mesh_component_cls is None:
@@ -120,6 +147,7 @@ def actor_to_dict(actor):
         "static_meshes": mesh_names(actor),
         "materials": material_names(actor),
         "pcg_components": component_paths(actor, "PCGComponent"),
+        "pcg_component_details": pcg_component_details(actor),
     }
 
 

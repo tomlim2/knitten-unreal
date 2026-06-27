@@ -21,6 +21,8 @@ Default script entry points:
 - List level actors: `node scripts/unreal/run-python-commandlet.mjs --script=scripts/unreal/list-level-actors.py`
 - Build box city: `node scripts/unreal/run-python-commandlet.mjs --script=scripts/unreal/build-box-city.py`
 - Randomize box-city building colors: `node scripts/unreal/run-python-commandlet.mjs --script=scripts/unreal/randomize-building-materials.py`
+- Legacy post-process conform box city to terrain: `node scripts/unreal/run-python-commandlet.mjs --script=scripts/unreal/conform-city-to-terrain.py`
+- Build terrain-aware box city generator: `node scripts/unreal/run-python-commandlet.mjs --script=scripts/unreal/build-pcg-box-city.py`
 - Refresh live editor level if Python Remote Execution is enabled: `python3 scripts/unreal/refresh-live-level.py`
 - List MCP toolsets: `node scripts/unreal/mcp-toolsets.mjs`
 
@@ -31,5 +33,10 @@ Operational rule:
 - For live editor changes, check MCP or Python remote execution first. If live
   execution is unavailable, commandlet scripts are still valid, but the open
   editor may need the level reloaded.
-- Treat `build-box-city.py` and similar generation scripts as writing scripts;
-  actor inventory and probes are read-only.
+- For new terrain-aware box-city work, fix `build-pcg-box-city.py` generation
+  logic first. Do not use `conform-city-to-terrain.py` as a substitute for
+  correcting the generator.
+- Treat `build-box-city.py`, `build-pcg-box-city.py`,
+  `randomize-building-materials.py`, `conform-city-to-terrain.py`, and similar
+  generation scripts as writing scripts; actor inventory and probes are
+  read-only.
