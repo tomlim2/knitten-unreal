@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Knitten Unreal",
     "shortDescription": "Fresh-start Unreal Engine skill payload for Knitten.",
-    "longDescription": "Knitten Unreal is currently a fresh-start placeholder. Existing Unreal Engine and CINEV workflow skills have moved back to KAS until this payload is redesigned.",
+    "longDescription": "Knitten Unreal is a fresh-start placeholder for a future Unreal Engine payload. It currently exposes no active skills.",
     "developerName": "tomlim2",
     "category": "Productivity",
     "capabilities": [
@@ -30,7 +30,7 @@
     "websiteURL": "https://github.com/tomlim2/knitten-unreal",
     "brandColor": "#6D28D9",
     "defaultPrompt": [
-      "Knitten Unreal currently has no active skills. Use KAS for existing Unreal Engine workflows."
+      "Knitten Unreal currently has no active skills."
     ],
     "screenshots": []
   }

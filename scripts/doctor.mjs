@@ -90,38 +90,6 @@ function countSkillFiles(root) {
   return count;
 }
 
-function listSkillDirsWithPrefix(root, prefix) {
-  const skillsRoot = path.join(root, "skills");
-  if (!fs.existsSync(skillsRoot)) return [];
-  return fs
-    .readdirSync(skillsRoot, { withFileTypes: true })
-    .filter((entry) => entry.isDirectory() && entry.name.startsWith(prefix))
-    .map((entry) => entry.name)
-    .sort();
-}
-
-function listForbiddenFindingReportRefs(root) {
-  const forbidden = /ah-report-finding|operational-findings|operational finding|finding report|PROMOTED_FINDINGS|shotloom-promote-findings|Mechanical Finding Capture|knitten:ah-report-finding/i;
-  const allowedSelfFiles = new Set(["scripts/doctor.mjs", "scripts/validate-boundary.mjs"]);
-  const matches = [];
-  const stack = [root];
-  while (stack.length) {
-    const current = stack.pop();
-    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
-      if (entry.name === ".git" || entry.name === "node_modules" || entry.name === ".agent-local") continue;
-      const absolutePath = path.join(current, entry.name);
-      const relativePath = path.relative(root, absolutePath);
-      if (entry.isDirectory()) {
-        stack.push(absolutePath);
-      } else if (entry.isFile() && !allowedSelfFiles.has(relativePath)) {
-        const text = fs.readFileSync(absolutePath, "utf8");
-        if (forbidden.test(text)) matches.push(relativePath);
-      }
-    }
-  }
-  return matches.sort();
-}
-
 function main() {
   const args = parseArgs(process.argv.slice(2));
   const checks = [];
@@ -147,18 +115,6 @@ function main() {
   check(checks, "source-skills-root", () => {
     const count = countSkillFiles(REPO_ROOT);
     return `${count} skills`;
-  });
-
-  check(checks, "source-no-ah-skills", () => {
-    const skills = listSkillDirsWithPrefix(REPO_ROOT, "ah-");
-    if (skills.length) throw new Error(`payload plugin must not include AH skills: ${skills.join(", ")}`);
-    return "no skills/ah-* directories";
-  });
-
-  check(checks, "source-no-finding-report-refs", () => {
-    const refs = listForbiddenFindingReportRefs(REPO_ROOT);
-    if (refs.length) throw new Error(`payload plugin must not reference finding report capture: ${refs.join(", ")}`);
-    return "no finding report references";
   });
 
   check(checks, "source-activation", () => {
@@ -251,18 +207,6 @@ function main() {
   check(checks, "copied-skills-root", () => {
     const count = countSkillFiles(copiedRoot);
     return `${count} skills`;
-  });
-
-  check(checks, "copied-no-ah-skills", () => {
-    const skills = listSkillDirsWithPrefix(copiedRoot, "ah-");
-    if (skills.length) throw new Error(`copied payload plugin must not include AH skills: ${skills.join(", ")}`);
-    return "no copied skills/ah-* directories";
-  });
-
-  check(checks, "copied-no-finding-report-refs", () => {
-    const refs = listForbiddenFindingReportRefs(copiedRoot);
-    if (refs.length) throw new Error(`copied payload plugin must not reference finding report capture: ${refs.join(", ")}`);
-    return "no copied finding report references";
   });
 
   check(checks, "copied-activation", () => {

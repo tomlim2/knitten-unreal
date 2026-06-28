@@ -3,25 +3,21 @@
 Knitten Unreal is an MIT-licensed fresh-start Knitten payload plugin for future
 Unreal Engine and UE Editor workflow skills.
 
-The previous Unreal-specific skill payload has moved back into
-`knitten-all-skills` (KAS). This repository is intentionally kept as a clean
-placeholder until the dedicated Unreal payload is redesigned.
+This repository is intentionally kept as a clean placeholder until the dedicated
+Unreal payload has a clear, reusable workflow surface.
 
 Repository: <https://github.com/tomlim2/knitten-unreal>
 
 ## Included Skills
 
-None currently. Use KAS for the existing Unreal Engine and CINEV workflow
-skills.
+None currently.
 
 ## Relationship
 
 | Repository | Use it for |
 |------------|------------|
-| `knitten` | Shared Agent Hub workflow skills, output paths, workflow contracts, and boundary rules. |
-| `knitten-all-skills` | General non-Shotloom private skills, including the current Unreal Engine helpers. |
-| `knitten-sl` | Shotloom-specific skills. |
-| `knitten-unreal` | Fresh-start placeholder for a future redesigned Unreal payload. |
+| `knitten` | Shared workflow skills, output paths, contracts, and boundary rules. |
+| `knitten-unreal` | Fresh-start placeholder for a future Unreal payload. |
 
 ## Layout
 
@@ -55,12 +51,10 @@ The materialize script copies this checkout into
 entry in `<home-directory>/.agents/plugins/marketplace.json`.
 
 The local marketplace should include Knitten core and any payload plugins you
-want enabled. `knitten-unreal` is optional while it has no active skills:
+want enabled. `knitten-unreal` is optional while it has no active skills.
 
 ```text
 knitten@knitten-local
-knitten-all-skills@knitten-local
-knitten-sl@knitten-local
 ```
 
 Restart Codex after refreshing plugin installations. Existing sessions may keep
